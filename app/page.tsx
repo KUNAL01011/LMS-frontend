@@ -1,0 +1,32 @@
+"use client";
+import React, { FC, useState } from "react";
+import Heading from "./utils/Heading";
+import Header from "./conponents/Header";
+import Hero from "./conponents/Route/Hero";
+interface Porps {}
+
+const page: FC<Porps> = (porps) => {
+  const [open, setOpne] = useState(false);
+  const [activeItem, setActiveItem] = useState(0);
+  const [route, setRoute] = useState("Login");
+
+  return (
+    <div>
+      <Heading
+        title="LMS"
+        description="LMS is a platform for students to learn and get help from teachers"
+        keywords="Prograaming,MERN,Redux,RTK,ML,DSA"
+      />
+      <Header
+        open={open}
+        setOpen={setOpne}
+        activeItem={activeItem}
+        setRoute={setRoute}
+        route={route}
+      />
+      <Hero />
+    </div>
+  );
+};
+
+export default page;
