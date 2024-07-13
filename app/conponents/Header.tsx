@@ -1,24 +1,49 @@
 "use client";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
-import CustomModal from '../utils/CustomModal'
-import Login from '../components/Auth/Login'
-import SignUp from '../components/Auth/SignUp'
-import Verification from '../components/Auth/Verification'
+import CustomModal from "../utils/CustomModal";
+import Login from "../components/Auth/Login";
+import SignUp from "../components/Auth/SignUp";
+import Verification from "../components/Auth/Verification";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import avatar from "../../public/assets/avatar.png";
+import { useSession } from "next-auth/react";
+import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
-  route:string;
-  setRoute:(route:string) => void;
+  route: string;
+  setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
+const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { user } = useSelector((state: any) => state.auth);
+  const { data } = useSession();
+  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
+
+  useEffect(() => {
+    if (!user) {
+      if (data) {
+        socialAuth({
+          email: data?.user?.email,
+          name: data?.user?.name,
+          avatar: data?.user?.image,
+        });
+      }
+    }
+    if(isSuccess){
+      toast.success("Login successfully");
+    }
+  }, [data, user]);
+
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -66,11 +91,21 @@ const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
                   onClick={() => setOpenSidebar(true)}
                 />
               </div>
-              <HiOutlineUserCircle
-                size={30}
-                className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              {user ? (
+                <Link href={"/profile"}>
+                  <Image
+                    src={user.avatar ? user.avatar : avatar}
+                    alt="user-image"
+                    className="w-[30px] h-[30px] rounded-full"
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  size={30}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpen(true)}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -97,11 +132,10 @@ const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
           </div>
         )}
       </div>
-      {
-        route === "Sign-Up" && (
-          <>
+      {route === "Sign-Up" && (
+        <>
           {open && (
-            <CustomModal 
+            <CustomModal
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
@@ -109,14 +143,12 @@ const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
               component={SignUp}
             />
           )}
-          </>
-        )
-      }
-      {
-        route === "Login" && (
-          <>
+        </>
+      )}
+      {route === "Login" && (
+        <>
           {open && (
-            <CustomModal 
+            <CustomModal
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
@@ -124,14 +156,12 @@ const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
               component={Login}
             />
           )}
-          </>
-        )
-      }
-      {
-        route === "Verification" && (
-          <>
+        </>
+      )}
+      {route === "Verification" && (
+        <>
           {open && (
-            <CustomModal 
+            <CustomModal
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
@@ -139,14 +169,12 @@ const Header: FC<Props> = ({ activeItem, setOpen,route,open,setRoute }) => {
               component={Verification}
             />
           )}
-          </>
-        )
-      }
+        </>
+      )}
     </div>
   );
 };
 
 export default Header;
-
 
 // 46:15
