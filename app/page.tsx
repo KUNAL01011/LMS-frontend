@@ -6,7 +6,7 @@ import Hero from "./conponents/Route/Hero";
 interface Porps {}
 
 const page: FC<Porps> = (porps) => {
-  const [open, setOpne] = useState(false);
+  const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
 
@@ -19,7 +19,7 @@ const page: FC<Porps> = (porps) => {
       />
       <Header
         open={open}
-        setOpen={setOpne}
+        setOpen={setOpen}
         activeItem={activeItem}
         setRoute={setRoute}
         route={route}
