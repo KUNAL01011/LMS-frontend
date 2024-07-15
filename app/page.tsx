@@ -1,8 +1,8 @@
 "use client";
 import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
-import Header from "./conponents/Header";
-import Hero from "./conponents/Route/Hero";
+import Header from "./components/Header";
+import Hero from "./components/Route/Hero";
 interface Porps {}
 
 const page: FC<Porps> = (porps) => {

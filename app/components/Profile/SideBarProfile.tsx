@@ -20,6 +20,7 @@ const SideBarProfile: FC<Props> = ({
   logOutHandler,
 }) => {
   return (
+    
     <div className="w-full">
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
@@ -28,7 +29,9 @@ const SideBarProfile: FC<Props> = ({
         onClick={() => setActive(1)}
       >
         <Image
-          src={user.avatar || avatar ? user.avatar || avatar : avatarDefault}
+          src={user.avatar || avatar ? user.avatar.url || avatar : avatarDefault}
+          width={20}
+          height={20}
           alt=""
           className="w-[20px] h-[20px] 800px:w-[30px] 800px:h-[30px] cursor-pointer rounded-full"
         />
@@ -48,9 +51,11 @@ const SideBarProfile: FC<Props> = ({
           Change Password
         </h5>
       </div>
+
+
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 2 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+          active === 3 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
         }`}
         onClick={() => setActive(3)}
       >
@@ -59,9 +64,10 @@ const SideBarProfile: FC<Props> = ({
           Enrolled Courses
         </h5>
       </div>
+
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 2 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+          active === 4 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
         }`}
         onClick={() => logOutHandler()}
       >

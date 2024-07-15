@@ -3,9 +3,7 @@ import React, { FC, useState } from "react";
 import SideBarProfile from "./SideBarProfile";
 import { useLogOutQuery } from "@/redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
-import ProfileInfo from "./ProfileInfo.tsx";
-// import { redirect } from "next/dist/server/api-utils";
+import ProfileInfo from "./ProfileInfo";
 type Props = {
   user: any;
 };

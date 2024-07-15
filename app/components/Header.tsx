@@ -5,9 +5,9 @@ import NavItems from "../utils/NavItems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
-import Login from "../components/Auth/Login";
-import SignUp from "../components/Auth/SignUp";
-import Verification from "../components/Auth/Verification";
+import Login from "./Auth/Login";
+import SignUp from "./Auth/SignUp";
+import Verification from "./Auth/Verification";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import avatar from "../../public/assets/avatar.png";
@@ -35,6 +35,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
+
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -52,6 +53,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
     }
 
     if (data === null) {
+      console.log("Helllooo we are loogin out :")
       setLogout(true);
     }
   }, [data, user]);
@@ -105,8 +107,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
               {user ? (
                 <Link href={"/profile"}>
                   <Image
-                    src={user.avatar ? user.avatar : avatar}
+                    src={user.avatar ? user.avatar.url : avatar}
                     alt="user-image"
+                    width={30}
+                    height={30}
+                    style={{border:activeItem === 5 ? "2px solid #37a39a" : "none"}}
                     className="w-[30px] h-[30px] rounded-full"
                   />
                 </Link>
