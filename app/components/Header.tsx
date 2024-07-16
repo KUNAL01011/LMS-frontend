@@ -52,8 +52,8 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
       }
     }
 
-    if (data === null) {
-      console.log("Helllooo we are loogin out :")
+    // here i do change accoding to my knowlage
+    if (data === null && !user) {
       setLogout(true);
     }
   }, [data, user]);
