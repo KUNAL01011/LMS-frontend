@@ -228,6 +228,20 @@ const CourseContent: FC<Props> = ({
                       />
                     </div>
                     <div className="my-3">
+                      <label className={styles.lable}>Video Length (in minutes)</label>
+                      <input
+                        type="number"
+                        placeholder="20min"
+                        className={`${styles.input}`}
+                        value={item.videoLength}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].videoLength = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+                    <div className="my-3">
                       <label className={styles.lable}>Video Description</label>
                       <textarea
                         rows={8}
@@ -348,4 +362,4 @@ const CourseContent: FC<Props> = ({
 
 export default CourseContent;
 
-// 5:46:14
+// 9:19:24

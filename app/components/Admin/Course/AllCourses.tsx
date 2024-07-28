@@ -12,6 +12,7 @@ import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
 import { styles } from "@/app/styles/style";
 import toast from "react-hot-toast";
+import Link from "next/link";
 type Props = {};
 
 const AllCourses = (props: Props) => {
@@ -38,9 +39,9 @@ const AllCourses = (props: Props) => {
       renderCell: (params: any) => {
         return (
           <>
-            <Button>
+            <Link href={`/admin/edit-course/${params.row.id}`}>
               <FiEdit2 className="dark:text-white text-black" size={20} />
-            </Button>
+            </Link>
           </>
         );
       },
